@@ -4,13 +4,17 @@
 
 **Blocked by:** 05: Build Refund Eligibility Rules
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] The workspace supports exact email search for Customers.
-- [ ] The workspace displays Customer candidates when a search matches.
-- [ ] The workspace lets the Support Agent select a Customer.
-- [ ] The workspace displays recent Orders for the selected Customer.
-- [ ] The workspace lets the Support Agent select an Order.
-- [ ] The workspace displays refund eligibility and the rule breakdown.
-- [ ] The workspace shows a disabled `Create refund draft` button after eligibility is checked.
-- [ ] The UI uses Spring MVC and Thymeleaf, with no separate frontend build system.
+- [x] The workspace supports exact email search for Customers.
+- [x] The workspace displays Customer candidates when a search matches.
+- [x] The workspace lets the Support Agent select a Customer.
+- [x] The workspace displays recent Orders for the selected Customer.
+- [x] The workspace lets the Support Agent select an Order.
+- [x] The workspace displays refund eligibility and the rule breakdown.
+- [x] The workspace shows a disabled `Create refund draft` button after eligibility is checked.
+- [x] The UI uses Spring MVC and Thymeleaf, with no separate frontend build system.
+
+## Answer
+
+Replaced the placeholder workspace with a server-rendered Spring MVC and Thymeleaf flow. `/support` supports email search, candidate selection, recent Order display, Order selection, refund eligibility summary, rule breakdown, and the disabled `Create refund draft` control for the later slice.

@@ -4,15 +4,19 @@
 
 **Blocked by:** 04: Build Customer Lookup and Recent Orders
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Eligibility requires both Customer ID and Order ID.
-- [ ] Eligibility verifies that the Customer exists.
-- [ ] Eligibility verifies that the Order exists and belongs to the Customer.
-- [ ] Eligibility requires an active Customer.
-- [ ] A blocked Customer is ineligible.
-- [ ] A watch Customer can remain eligible but returns a warning check.
-- [ ] Eligibility requires a delivered Order with `delivered_at`.
-- [ ] The 30-day refund window is calculated from `delivered_at`.
-- [ ] An already-refunded Order is ineligible.
-- [ ] The result includes eligibility, reason, max refund minor units, currency, and passed/failed/warning checks.
+- [x] Eligibility requires both Customer ID and Order ID.
+- [x] Eligibility verifies that the Customer exists.
+- [x] Eligibility verifies that the Order exists and belongs to the Customer.
+- [x] Eligibility requires an active Customer.
+- [x] A blocked Customer is ineligible.
+- [x] A watch Customer can remain eligible but returns a warning check.
+- [x] Eligibility requires a delivered Order with `delivered_at`.
+- [x] The 30-day refund window is calculated from `delivered_at`.
+- [x] An already-refunded Order is ineligible.
+- [x] The result includes eligibility, reason, max refund minor units, currency, and passed/failed/warning checks.
+
+## Answer
+
+Added `RefundEligibilityService` with repository-backed Customer and Order checks. It enforces required IDs, existence, ownership, active Customer status, blocked-risk failure, watch-risk warning, delivered status, delivered timestamp presence, the configurable 30-day refund window, and prior-refund failure. Results include the final boolean, reason, max refund amount, currency, and ordered rule checks.

@@ -4,11 +4,255 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MCP Support Desk</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --ink: #1f2933;
+            --muted: #5f6b7a;
+            --line: #d8dee6;
+            --panel: #f7f9fb;
+            --accent: #16697a;
+            --danger: #b42318;
+            --warning: #996a13;
+            --success: #287d3c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+        }
+
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 20px 48px;
+        }
+
+        h1 {
+            margin: 0 0 24px;
+            font-size: 32px;
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            font-size: 20px;
+        }
+
+        section {
+            border-top: 1px solid var(--line);
+            padding: 24px 0;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        label {
+            display: grid;
+            gap: 6px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        input {
+            min-width: min(360px, 100%);
+            padding: 10px 12px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        button, .button {
+            display: inline-flex;
+            align-items: center;
+            min-height: 42px;
+            padding: 10px 14px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            color: #ffffff;
+            background: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            border-color: var(--line);
+            color: var(--muted);
+            background: #eef2f6;
+            cursor: not-allowed;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        th, td {
+            padding: 10px 8px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .summary {
+            display: inline-flex;
+            margin: 4px 0 16px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+
+        .eligible {
+            color: var(--success);
+            background: #edf8ef;
+        }
+
+        .ineligible {
+            color: var(--danger);
+            background: #fff0ee;
+        }
+
+        .check-info {
+            color: var(--ink);
+        }
+
+        .check-warning {
+            color: var(--warning);
+        }
+
+        .check-blocking {
+            color: var(--danger);
+        }
+    </style>
 </head>
 <body>
 <main>
     <h1>MCP Support Desk</h1>
-    <p>Support Agent workspace placeholder.</p>
+
+    <section>
+        <h2>Find Customer</h2>
+        <form method="get" action="/support">
+            <label>
+                Exact email
+                <input name="email" type="email" th:value="${email}" placeholder="sam@example.com">
+            </label>
+            <button type="submit">Search</button>
+        </form>
+    </section>
+
+    <section th:if="${email != null}">
+        <h2>Customer Candidates</h2>
+        <p class="muted" th:if="${#lists.isEmpty(customers)}">No Customers matched that email address.</p>
+        <table th:if="${!#lists.isEmpty(customers)}">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Risk</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.name}">Sam Rivera</td>
+                <td th:text="${customer.email}">sam@example.com</td>
+                <td th:text="${customer.status}">active</td>
+                <td th:text="${customer.riskLevel}">normal</td>
+                <td>
+                    <a class="button" th:href="@{/support(email=${email},customerId=${customer.id})}">Select</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section th:if="${selectedCustomer != null}">
+        <h2>Recent Orders</h2>
+        <p class="muted">
+            <span th:text="${selectedCustomer.name}">Sam Rivera</span>
+            <span th:text="' (' + ${selectedCustomer.id} + ')'">(cus_eligible)</span>
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>Order</th>
+                <th>Placed</th>
+                <th>Delivered</th>
+                <th>Status</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}">ord_eligible</td>
+                <td th:text="${order.placedAt}">2026-09-01T10:15:00Z</td>
+                <td th:text="${order.deliveredAt ?: 'Not delivered'}">2026-09-03T10:15:00Z</td>
+                <td th:text="${order.status}">delivered</td>
+                <td th:text="${order.totalMinor + ' ' + order.currency}">7999 GBP</td>
+                <td>
+                    <a class="button" th:href="@{/support(email=${email},customerId=${selectedCustomer.id},orderId=${order.id})}">Check</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section th:if="${eligibility != null}">
+        <h2>Refund Eligibility</h2>
+        <div class="summary" th:classappend="${eligibility.eligible} ? ' eligible' : ' ineligible'"
+             th:text="${eligibility.eligible} ? 'Eligible' : 'Ineligible'">Eligible</div>
+        <p th:text="${eligibility.reason}">Order was delivered within the refund window.</p>
+        <p th:if="${eligibility.maxRefundMinor != null}">
+            Maximum refund:
+            <strong th:text="${eligibility.maxRefundMinor + ' ' + eligibility.currency}">7999 GBP</strong>
+        </p>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Check</th>
+                <th>Severity</th>
+                <th>Result</th>
+                <th>Message</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="check : ${eligibility.checks}">
+                <td th:text="${check.name}">within_refund_window</td>
+                <td th:class="${'check-' + check.severity}" th:text="${check.severity}">info</td>
+                <td th:text="${check.passed} ? 'Passed' : 'Failed'">Passed</td>
+                <td th:text="${check.message}">Order was delivered within the 30 day refund window.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            <button type="button" disabled>Create refund draft</button>
+        </p>
+    </section>
 </main>
 </body>
 </html>
