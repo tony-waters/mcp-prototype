@@ -8,6 +8,7 @@
 
 - [ ] The service accepts a non-blank question.
 - [ ] The service constrains answers to refund-case support data.
+- [ ] Factual claims about Customers, Orders, refund eligibility, and refund amounts are grounded in MCP tool results.
 - [ ] The service can call `lookupCustomer`.
 - [ ] The service can call `getRecentOrders`.
 - [ ] The service can call `checkRefundEligibility`.

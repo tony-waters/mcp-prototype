@@ -11,7 +11,7 @@ The slice should prove the end-to-end MCP value proposition inside the demo: a h
 In scope:
 
 - A free-text question box in the existing Spring MVC + Thymeleaf Support Agent workspace.
-- A server-side AI agent boundary in the Spring Boot app.
+- A server-side, provider-neutral AI agent boundary in the Spring Boot app.
 - MCP client calls from the agent boundary to the app's own MCP server tools.
 - Tool-use trace display in the UI.
 - Configuration for model credentials through environment variables only.
@@ -23,7 +23,7 @@ Out of scope:
 
 - Browser-side model credentials.
 - Persisting chat history.
-- Multi-turn conversation memory beyond one submitted question.
+- Multi-turn conversation memory.
 - Real refund creation.
 - Replacing the existing guided deterministic workflow.
 - Full production authentication or authorization.
@@ -46,12 +46,15 @@ Preferred runtime flow:
 6. Server returns an answer plus a trace of tool calls and relevant source data.
 7. UI renders the answer without removing the existing guided workflow.
 
-The server-side agent may use an LLM when credentials are configured. Without credentials, it must return a clear disabled or demo-only state rather than crashing.
+The server-side agent may use an LLM when provider credentials are configured. Without credentials, it must return a clear disabled or demo-only state rather than crashing.
 
 ## Model and Cost Requirements
 
 - Model credentials must be configured through environment variables and must not be committed.
-- The UI must clearly indicate when free-text AI is unavailable because credentials are missing.
+- The model integration should be implemented behind provider-neutral Spring AI abstractions rather than hard-coding one provider into the application design.
+- The slice should include Anthropic as the bundled default provider for a runnable live-model demo path.
+- The Anthropic demo path should use Spring AI's standard Anthropic configuration properties and environment variable mapping.
+- The UI must clearly indicate when free-text AI is unavailable because credentials are missing and must disable free-text submission in that state.
 - The default `docker compose up --build` path must still run without paid model calls.
 - Automated tests must use deterministic fakes, mocks, or a local rule-based test double rather than a live paid model.
 - Documentation must state that AI provider usage may incur external costs only when credentials are configured and free-text questions are submitted.
@@ -62,7 +65,7 @@ The Support Agent workspace should include:
 
 - a free-text question input
 - a submit control
-- loading, success, missing-credentials, validation-error, and tool-error states
+- loading, success, disabled/missing-credentials, validation-error, and tool-error states
 - the assistant's answer
 - a readable trace of MCP tools called, arguments used, and summarized results
 
@@ -76,10 +79,11 @@ The existing guided workflow must remain usable:
 
 ## Agent Behavior
 
-The agent should be constrained to the available MCP tools and the refund-case workflow.
+The agent should be constrained to single-turn refund eligibility questions, the available MCP tools, and the refund-case workflow.
 
 It should:
 
+- ground factual claims about Customers, Orders, refund eligibility, and refund amounts in MCP tool results
 - ask for an email address when the question does not identify a Customer strongly enough
 - avoid silently choosing between duplicate Customer matches
 - use `getRecentOrders` before checking eligibility if the Order ID is not explicit
@@ -96,7 +100,7 @@ Each free-text response should expose enough trace information for a human Suppo
 - success or failure status
 - compact result summary
 
-The trace is user-facing diagnostic evidence, not hidden debug logs.
+The trace is visible by default as user-facing diagnostic evidence, not hidden debug logs or raw protocol JSON.
 
 ## Local Runtime
 
