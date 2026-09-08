@@ -1,8 +1,8 @@
-# 06: Expose MCP Tools Over Shared Services
+# 07: Expose MCP Tools Over Shared Services
 
 **What to build:** an external AI assistant can use MCP tools for Customer lookup, recent Orders, and refund eligibility, with the tool adapter calling the same application services as the Support Agent workspace.
 
-**Blocked by:** 04: Build Refund Eligibility Rules
+**Blocked by:** 05: Build Refund Eligibility Rules
 
 **Status:** ready-for-agent
 

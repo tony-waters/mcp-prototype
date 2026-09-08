@@ -12,7 +12,8 @@ In scope:
 
 - Spring Boot WebMVC application.
 - Spring AI MCP server using Streamable HTTP.
-- PostgreSQL as the development database, run locally through Docker Compose.
+- PostgreSQL as the development database.
+- Docker Compose as the local runtime for the complete first-slice system, including the Spring Boot app and PostgreSQL.
 - Spring MVC + Thymeleaf Support Agent workspace.
 - Shared application services used by both the UI and MCP tool adapter.
 - Seeded refund-case data.
@@ -226,6 +227,15 @@ The first slice UI should support:
 
 The UI should be server-rendered with Thymeleaf. Use small progressive JavaScript only if it materially improves the flow.
 
+## Local Runtime
+
+The complete first-slice system must run through Docker Compose. Compose should include:
+
+- PostgreSQL.
+- The Spring Boot application, built from the repo source.
+
+The application container should connect to PostgreSQL over the Compose network. Host-local `localhost` database configuration can exist for direct `./mvnw spring-boot:run`, but the Compose path is the canonical demo path.
+
 ## Database Seed Data
 
 Seed four refund-case scenarios:
@@ -251,8 +261,7 @@ Full protocol-level MCP client tests are out of scope for this slice.
 
 This slice is done when:
 
-- Docker PostgreSQL starts locally.
-- The Spring Boot app starts locally.
+- Docker Compose starts PostgreSQL and the Spring Boot app locally.
 - The Support Agent workspace can search for a Customer and check refund eligibility.
 - The MCP tool bean methods are wired and callable in tests.
 - Refund eligibility tests cover the seeded scenarios.

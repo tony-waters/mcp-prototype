@@ -1,8 +1,8 @@
-# 02: Seed Refund Case Data
+# 03: Seed Refund Case Data
 
 **What to build:** the local database contains stable Customers and Orders for the first refund-case scenarios so the Support Agent workspace and MCP tools have realistic data to inspect.
 
-**Blocked by:** 01: Wire Spring WebMVC, PostgreSQL, and MCP
+**Blocked by:** 02: Run the Complete System in Docker Compose
 
 **Status:** ready-for-agent
 

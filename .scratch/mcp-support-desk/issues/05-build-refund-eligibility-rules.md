@@ -1,8 +1,8 @@
-# 04: Build Refund Eligibility Rules
+# 05: Build Refund Eligibility Rules
 
 **What to build:** the application can check whether a Customer's Order is eligible for this refund workflow and explain the result through a rule breakdown.
 
-**Blocked by:** 03: Build Customer Lookup and Recent Orders
+**Blocked by:** 04: Build Customer Lookup and Recent Orders
 
 **Status:** ready-for-agent
 

@@ -1,8 +1,8 @@
-# 05: Build Support Agent Workspace
+# 06: Build Support Agent Workspace
 
 **What to build:** a Support Agent can use a server-rendered workspace to search for a Customer, inspect recent Orders, and view refund eligibility for a selected Order.
 
-**Blocked by:** 04: Build Refund Eligibility Rules
+**Blocked by:** 05: Build Refund Eligibility Rules
 
 **Status:** ready-for-agent
 

@@ -1,8 +1,8 @@
-# 07: Add First-Slice Verification
+# 08: Add First-Slice Verification
 
 **What to build:** automated verification proves the first slice is complete and protects the key refund-case behavior.
 
-**Blocked by:** 05: Build Support Agent Workspace; 06: Expose MCP Tools Over Shared Services
+**Blocked by:** 06: Build Support Agent Workspace; 07: Expose MCP Tools Over Shared Services
 
 **Status:** ready-for-agent
 

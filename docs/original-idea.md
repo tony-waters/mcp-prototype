@@ -255,11 +255,12 @@ These rules give the agent something meaningful to ask about while keeping sensi
 Build this first:
 
 1. Spring Boot app with MCP server support.
-2. Spring MVC + Thymeleaf guided refund-case workspace.
-3. PostgreSQL schema and seed data.
-4. `lookupCustomer`, `getRecentOrders`, and `checkRefundEligibility`.
-5. Integration tests for the refund eligibility rules.
-6. A sample prompt/script showing the assistant using the tools.
+2. Docker Compose runtime for the complete local system: Spring Boot app plus PostgreSQL.
+3. Spring MVC + Thymeleaf guided refund-case workspace.
+4. PostgreSQL schema and seed data.
+5. `lookupCustomer`, `getRecentOrders`, and `checkRefundEligibility`.
+6. Integration tests for the refund eligibility rules.
+7. A sample prompt/script showing the assistant using the tools.
 
 Seed the first database with four refund-case scenarios:
 
@@ -268,7 +269,7 @@ Seed the first database with four refund-case scenarios:
 - out-of-window order
 - blocked Customer
 
-The first slice is done when the app runs locally with Docker PostgreSQL, the Support Agent workspace can search for a Customer and check refund eligibility, MCP tool bean methods are wired to the same application services as the UI, and the automated tests pass.
+The first slice is done when the complete system runs locally through Docker Compose with the Spring Boot app and PostgreSQL, the Support Agent workspace can search for a Customer and check refund eligibility, MCP tool bean methods are wired to the same application services as the UI, and the automated tests pass.
 
 Then add:
 

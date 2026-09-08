@@ -1,8 +1,8 @@
-# 03: Build Customer Lookup and Recent Orders
+# 04: Build Customer Lookup and Recent Orders
 
 **What to build:** a Support Agent or MCP tool can find Customers by exact email and retrieve recent Orders for a selected Customer.
 
-**Blocked by:** 02: Seed Refund Case Data
+**Blocked by:** 03: Seed Refund Case Data
 
 **Status:** ready-for-agent
 
