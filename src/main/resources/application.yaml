@@ -14,3 +14,7 @@ spring:
         type: SYNC
         annotation-scanner:
           enabled: true
+
+refund:
+  clock:
+    instant: ${REFUND_CLOCK_INSTANT:2026-09-08T12:00:00Z}

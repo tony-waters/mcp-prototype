@@ -35,5 +35,4 @@ insert into customer_orders (id, customer_id, placed_at, delivered_at, status, t
     ('ord_refunded', 'cus_refunded', '2026-08-28T09:00:00Z', '2026-08-30T12:00:00Z', 'refunded', 4299, 'GBP', '2026-09-01T08:30:00Z'),
     ('ord_out_of_window', 'cus_out_of_window', '2026-06-01T11:20:00Z', '2026-06-03T16:45:00Z', 'delivered', 15999, 'GBP', null),
     ('ord_blocked_customer', 'cus_blocked', '2026-09-02T14:10:00Z', '2026-09-04T14:00:00Z', 'delivered', 2399, 'GBP', null),
-    ('ord_watch_customer', 'cus_watch', '2026-09-04T10:00:00Z', '2026-09-05T13:00:00Z', 'delivered', 5899, 'GBP', null),
-    ('ord_cancelled', 'cus_eligible', '2026-08-25T09:15:00Z', null, 'cancelled', 2199, 'GBP', null);
+    ('ord_watch_customer', 'cus_watch', '2026-09-04T10:00:00Z', '2026-09-05T13:00:00Z', 'delivered', 5899, 'GBP', null);
