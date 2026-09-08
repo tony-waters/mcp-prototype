@@ -2,9 +2,9 @@ spring:
   application:
     name: mcp-prototype
   datasource:
-    url: jdbc:postgresql://localhost:5432/mcp_support_desk
-    username: mcp_support_desk
-    password: mcp_support_desk
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/mcp_support_desk}
+    username: ${SPRING_DATASOURCE_USERNAME:mcp_support_desk}
+    password: ${SPRING_DATASOURCE_PASSWORD:mcp_support_desk}
   ai:
     mcp:
       server:

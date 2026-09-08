@@ -4,7 +4,7 @@
 
 **Blocked by:** 01: Wire Spring WebMVC, PostgreSQL, and MCP
 
-**Status:** ready-for-agent
+**Status:** claimed
 
 - [ ] Docker Compose includes a Spring Boot application service as well as PostgreSQL.
 - [ ] The application service builds from the repo source.
