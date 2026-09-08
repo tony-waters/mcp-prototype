@@ -12,3 +12,4 @@
 ## Fog
 
 - Future slices still need refund draft creation and any full protocol-level MCP client coverage the project decides to add.
+- Ticket 10 captured the new free-text MCP interrogation requirement and split it into a dedicated follow-up slice. See `.scratch/mcp-support-desk/issues/10-add-free-text-mcp-interrogation-ui.md` and `.scratch/mcp-support-desk-free-text/spec.md`.

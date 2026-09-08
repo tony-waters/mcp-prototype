@@ -257,6 +257,10 @@ Required tests:
 
 Full protocol-level MCP client tests are out of scope for this slice.
 
+## Future Requirements
+
+- The frontend should accept a Support Agent's free-text question and use MCP tools to answer it against customer, order, and refund eligibility data. This requires a follow-up architecture decision because the first slice treats MCP as the external assistant boundary and keeps in-app LLM calls out of scope.
+
 ## Done
 
 This slice is done when:
