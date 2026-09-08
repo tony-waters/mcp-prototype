@@ -4,10 +4,14 @@
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] The application includes the dependencies needed for Spring WebMVC, Thymeleaf, PostgreSQL access, database migrations or schema initialization, tests, and Spring AI MCP server support.
-- [ ] A local Docker PostgreSQL setup is available for development.
-- [ ] Application configuration connects to PostgreSQL in local development.
-- [ ] The MCP server is configured for WebMVC Streamable HTTP, consistent with ADR-0001.
-- [ ] The app starts successfully against the local PostgreSQL database.
+- [x] The application includes the dependencies needed for Spring WebMVC, Thymeleaf, PostgreSQL access, database migrations or schema initialization, tests, and Spring AI MCP server support.
+- [x] A local Docker PostgreSQL setup is available for development.
+- [x] Application configuration connects to PostgreSQL in local development.
+- [x] The MCP server is configured for WebMVC Streamable HTTP, consistent with ADR-0001.
+- [x] The app starts successfully against the local PostgreSQL database.
+
+## Answer
+
+Added the Spring Boot WebMVC, Thymeleaf, JDBC, Flyway, PostgreSQL, and Spring AI MCP WebMVC dependencies. Added Docker Compose PostgreSQL 17, local datasource/MCP configuration, a baseline Flyway migration, and a placeholder Support Agent workspace route/template. Verified `./mvnw test`, Docker PostgreSQL health, `/support`, and MCP `initialize` over `/mcp` with Streamable HTTP headers.

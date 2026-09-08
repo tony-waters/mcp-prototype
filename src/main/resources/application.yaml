@@ -1,3 +1,16 @@
 spring:
   application:
     name: mcp-prototype
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mcp_support_desk
+    username: mcp_support_desk
+    password: mcp_support_desk
+  ai:
+    mcp:
+      server:
+        name: mcp-support-desk
+        version: 0.0.1
+        protocol: STREAMABLE
+        type: SYNC
+        annotation-scanner:
+          enabled: true
