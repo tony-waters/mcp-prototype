@@ -1,0 +1,5 @@
+interface:
+  display_name: "Suggest a Prototype"
+  short_description: "Suggest Spring Boot prototype ideas"
+policy:
+  allow_implicit_invocation: false
