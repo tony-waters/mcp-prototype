@@ -1,11 +1,9 @@
 spring:
   application:
     name: mcp-prototype
-  datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/mcp_support_desk}
-    username: ${SPRING_DATASOURCE_USERNAME:mcp_support_desk}
-    password: ${SPRING_DATASOURCE_PASSWORD:mcp_support_desk}
   ai:
+    model:
+      chat: ${SPRING_AI_MODEL_CHAT:none}
     mcp:
       server:
         name: mcp-support-desk
@@ -14,7 +12,15 @@ spring:
         type: SYNC
         annotation-scanner:
           enabled: true
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/mcp_support_desk}
+    username: ${SPRING_DATASOURCE_USERNAME:mcp_support_desk}
+    password: ${SPRING_DATASOURCE_PASSWORD:mcp_support_desk}
 
 refund:
   clock:
     instant: ${REFUND_CLOCK_INSTANT:2026-09-08T12:00:00Z}
+
+support:
+  free-text:
+    mcp-url: ${SUPPORT_FREE_TEXT_MCP_URL:http://localhost:8080/mcp}

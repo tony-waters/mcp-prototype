@@ -59,6 +59,8 @@ docker compose down --volumes
 
 The `Create refund draft` button is intentionally disabled. Refund draft creation is outside this slice.
 
+The `Ask with AI` form is disabled by default. It becomes available when a Spring AI chat model provider is configured.
+
 Useful seeded scenarios:
 
 | Scenario | Email | Customer ID | Order ID | Expected result |
@@ -69,6 +71,33 @@ Useful seeded scenarios:
 | Blocked customer | `marta@example.com` | `cus_blocked` | `ord_blocked_customer` | Ineligible |
 | Watch customer | `alex@example.com` | `cus_watch` | `ord_watch_customer` | Eligible with warning |
 | Duplicate email lookup | `duplicate@example.com` | `cus_duplicate_a`, `cus_duplicate_b` | none | Multiple candidates |
+
+## Use Free Text AI
+
+The free-text assistant accepts one refund eligibility question at a time. It runs server-side, asks a configured Spring AI chat model to extract the Customer email and optional Order ID, then calls the app's MCP tools over `/mcp`. Answers are grounded in MCP tool results and include a compact tool trace.
+
+Example question:
+
+```text
+Can sam@example.com's latest delivered order be refunded?
+```
+
+The default configuration does not make paid model calls:
+
+```yaml
+spring.ai.model.chat: none
+```
+
+To enable the bundled Anthropic demo path, configure Spring AI's standard Anthropic settings. For example:
+
+```bash
+SPRING_AI_MODEL_CHAT=anthropic \
+SPRING_AI_ANTHROPIC_API_KEY=<your-api-key> \
+SPRING_AI_ANTHROPIC_CHAT_MODEL=<anthropic-chat-model> \
+docker compose up --build
+```
+
+External AI provider costs may apply only when a provider is enabled, credentials are configured, and free-text questions are submitted.
 
 ## MCP Endpoint
 
@@ -174,6 +203,10 @@ Application environment:
 | `SPRING_DATASOURCE_USERNAME` | `mcp_support_desk` | Database user |
 | `SPRING_DATASOURCE_PASSWORD` | `mcp_support_desk` | Database password |
 | `REFUND_CLOCK_INSTANT` | `2026-09-08T12:00:00Z` | Fixed demo clock for repeatable seeded refund scenarios |
+| `SPRING_AI_MODEL_CHAT` | `none` | Chat model provider selection; use `anthropic` to enable the bundled provider |
+| `SPRING_AI_ANTHROPIC_API_KEY` | unset | Anthropic API key used only when Anthropic chat is enabled |
+| `SPRING_AI_ANTHROPIC_CHAT_MODEL` | unset | Anthropic chat model name |
+| `SUPPORT_FREE_TEXT_MCP_URL` | `http://localhost:8080/mcp` | MCP endpoint used by the server-side free-text agent |
 
 Set `REFUND_CLOCK_INSTANT=` or set `refund.clock.instant` to an empty value if you want the app to use the real system clock.
 

@@ -23,5 +23,4 @@
 
 ## Fog
 
-- Confirm the exact Spring AI client APIs during implementation.
-- Confirm the exact Spring AI Anthropic property and environment variable names during implementation.
+- Future work can add live-model smoke testing as an opt-in path once real provider credentials are available.

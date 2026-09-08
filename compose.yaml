@@ -6,6 +6,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/mcp_support_desk
       SPRING_DATASOURCE_USERNAME: mcp_support_desk
       SPRING_DATASOURCE_PASSWORD: mcp_support_desk
+      SPRING_AI_MODEL_CHAT: ${SPRING_AI_MODEL_CHAT:-none}
+      SPRING_AI_ANTHROPIC_API_KEY: ${SPRING_AI_ANTHROPIC_API_KEY:-}
+      SPRING_AI_ANTHROPIC_CHAT_MODEL: ${SPRING_AI_ANTHROPIC_CHAT_MODEL:-}
+      SUPPORT_FREE_TEXT_MCP_URL: ${SUPPORT_FREE_TEXT_MCP_URL:-http://localhost:8080/mcp}
     ports:
       - "${APP_PORT:-8080}:8080"
     depends_on:

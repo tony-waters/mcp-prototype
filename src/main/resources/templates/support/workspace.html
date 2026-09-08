@@ -63,12 +63,19 @@
             font-size: 14px;
         }
 
-        input {
+        input, textarea {
             min-width: min(360px, 100%);
             padding: 10px 12px;
             border: 1px solid var(--line);
             border-radius: 6px;
             font-size: 16px;
+            font-family: inherit;
+        }
+
+        textarea {
+            width: min(720px, 100%);
+            min-height: 88px;
+            resize: vertical;
         }
 
         button, .button {
@@ -115,6 +122,28 @@
             color: var(--muted);
         }
 
+        .field-wide {
+            width: min(720px, 100%);
+        }
+
+        .assistant-answer {
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-left: 4px solid var(--accent);
+            background: var(--panel);
+        }
+
+        .error {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .trace-args {
+            color: var(--muted);
+            font-size: 13px;
+            word-break: break-word;
+        }
+
         .summary {
             display: inline-flex;
             margin: 4px 0 16px;
@@ -149,6 +178,48 @@
 <body>
 <main>
     <h1>MCP Support Desk</h1>
+
+    <section>
+        <h2>Ask with AI</h2>
+        <p class="muted" th:if="${!freeTextAvailable}">Free text AI is unavailable because no model provider credentials are configured.</p>
+        <p class="error" th:if="${freeTextError != null}" th:text="${freeTextError}">Enter a refund eligibility question.</p>
+        <form method="post" action="/support/free-text">
+            <label class="field-wide">
+                Refund eligibility question
+                <textarea name="question"
+                          th:text="${freeTextQuestion}"
+                          th:disabled="${!freeTextAvailable}"
+                          placeholder="Can sam@example.com's latest delivered order be refunded?"></textarea>
+            </label>
+            <button type="submit" th:disabled="${!freeTextAvailable}">Ask</button>
+        </form>
+
+        <div class="assistant-answer" th:if="${freeTextResponse != null}">
+            <div class="summary"
+                 th:classappend="${freeTextResponse.status.name() == 'ANSWERED'} ? ' eligible' : ' ineligible'"
+                 th:text="${freeTextResponse.status}">ANSWERED</div>
+            <p th:text="${freeTextResponse.answer}">Eligible. Maximum refund is 7999 GBP.</p>
+
+            <table th:if="${!#lists.isEmpty(freeTextResponse.trace)}">
+                <thead>
+                <tr>
+                    <th>Tool</th>
+                    <th>Arguments</th>
+                    <th>Status</th>
+                    <th>Result</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="trace : ${freeTextResponse.trace}">
+                    <td th:text="${trace.toolName}">lookupCustomer</td>
+                    <td class="trace-args" th:text="${trace.arguments}">{email=sam@example.com}</td>
+                    <td th:text="${trace.status}">success</td>
+                    <td th:text="${trace.resultSummary}">1 Customer matched</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
     <section>
         <h2>Find Customer</h2>
